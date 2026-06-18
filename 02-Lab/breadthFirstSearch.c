@@ -17,7 +17,7 @@ void push(int n){
 
 int poll(){
     if(front == -1 || front > rear){
-        // printf("Queue underflow\n");
+        printf("Queue underflow\n");
         return -1;
     } else {
         int val = queue[front++];
@@ -56,8 +56,6 @@ void main(){
 
     int visited[5] = {0, 0, 0, 0, 0};
 
-    int answer[5] = {0, 0, 0, 0, 0};
-
     // printf("Enter inputs for adjacency matrix: \n");
     // for(int i = 0; i < vertex; i++){
     //     for(int j = 0; j < vertex; j++){
@@ -66,20 +64,18 @@ void main(){
     //     }
     // }
 
-    int answerIndex = 0;
-    for(int i = 0; i < vertex; i++){
-        push(i);
-        for(int j = i + 1; j < vertex; j++){
-            int p = peek();
-            if(adjacencyMatrix[i][j] == 1 && visited[i] == 0 && p == j){
-                push(j);
-            }
-        }
-        visited[i] = 1;
-        answer[answerIndex++] = poll();
-    }
+push(0);
+visited[0] = 1;
 
-    for(int i = 0; i < answerIndex; i++){
-        printf("%d ", answer[i]);
+while(!isEmpty()){
+    int node = poll();
+    printf("%d ", node);
+
+    for(int j = 0; j < vertex; j++){
+        if(adjacencyMatrix[node][j] == 1 && visited[j] == 0){
+            visited[j] = 1;
+            push(j);
+        }
     }
+}
 }
