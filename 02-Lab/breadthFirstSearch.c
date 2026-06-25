@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 int queue[10];
 int rear = -1, front = -1;
@@ -42,6 +43,10 @@ int isEmpty(){
 }
 
 void main(){
+    clock_t start, end, time_taken;
+    start = clock();
+
+    
     // adj[][] = [[1,2], [0,2], [0,1,3,4], [2], [2]] 
     // ans = [0, 1, 2, 3, 4] 
 
@@ -64,18 +69,23 @@ void main(){
     //     }
     // }
 
-push(0);
-visited[0] = 1;
+    push(0);
+    visited[0] = 1;
 
-while(!isEmpty()){
-    int node = poll();
-    printf("%d ", node);
+    while(!isEmpty()){
+        int node = poll();
+        printf("%d ", node);
 
-    for(int j = 0; j < vertex; j++){
-        if(adjacencyMatrix[node][j] == 1 && visited[j] == 0){
-            visited[j] = 1;
-            push(j);
+        for(int j = 0; j < vertex; j++){
+            if(adjacencyMatrix[node][j] == 1 && visited[j] == 0){
+                visited[j] = 1;
+                push(j);
+            }
         }
     }
-}
+
+    end = clock();
+
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    printf("\nTime taken by algorithm : %d ", time_taken);
 }
